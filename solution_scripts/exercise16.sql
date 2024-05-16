@@ -2,7 +2,9 @@
 
 SELECT 
     invoice_id, 
-    invoice_date, total,
+    invoice_date, 
+    total,
     LAG(total, 1) OVER (ORDER BY invoice_date ASC) AS previous_invoice_total,
-    total - LAG(total, 1) OVER (ORDER BY invoice_date ASC) as difference
-FROM invoice;
+    total - LAG(total, 1) OVER (ORDER BY invoice_date ASC) AS difference
+FROM invoice
+ORDER BY invoice_date ASC;
