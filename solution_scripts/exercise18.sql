@@ -14,9 +14,7 @@ WITH num_tracks_per_artist_genre AS (
     GROUP BY artist.artist_id, artist.name, genre.genre_id, genre.name
 ),
 max_num_tracks_per_genre AS (
-    SELECT
-        genre_id,
-        MAX(count_tracks) as max_num_tracks
+    SELECT genre_id, MAX(count_tracks) as max_num_tracks
     FROM num_tracks_per_artist_genre
     GROUP BY genre_id
 ),
@@ -35,10 +33,7 @@ ranked_artists AS (
     ON num_tracks_per_artist_genre.genre_id = max_num_tracks_per_genre.genre_id
     AND num_tracks_per_artist_genre.count_tracks = max_num_tracks_per_genre.max_num_tracks
 )
-SELECT
-    artist_name,
-    genre_name,
-    count_tracks
+SELECT artist_name, genre_name, count_tracks
 FROM ranked_artists
 WHERE rank=1
 ORDER BY genre_name ASC;

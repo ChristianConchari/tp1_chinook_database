@@ -1,18 +1,13 @@
 -- 15. Para cada cliente, compara su gasto total con el del cliente que gastó más
 
 WITH total_spent_per_customer AS (
-    SELECT
-        customer.customer_id,
-        customer.first_name,
-        customer.last_name,
-        SUM(invoice.total) AS total_spent
+    SELECT customer.customer_id, customer.first_name, customer.last_name, SUM(invoice.total) AS total_spent
     FROM customer
     JOIN invoice ON customer.customer_id = invoice.customer_id
     GROUP BY customer.customer_id
 ),
 max_spent_customer AS (
-    SELECT 
-        MAX(total_spent) AS max_spent
+    SELECT MAX(total_spent) AS max_spent
     FROM total_spent_per_customer
 )
 SELECT 

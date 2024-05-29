@@ -1,15 +1,11 @@
 -- 14. Calcula el porcentaje de pistas que representa cada género.
 
 WITH total_tracks AS (
-    SELECT 
-        COUNT(track.track_id) AS total_tracks
+    SELECT COUNT(track_id) AS total_tracks
     FROM track
 ),
 num_tracks_per_genre AS (
-    SELECT
-        genre.genre_id,
-        genre.name AS genre_name,
-        COUNT(track.track_id) AS count_tracks
+    SELECT genre.genre_id, genre.name AS genre_name, COUNT(track.track_id) AS count_tracks
     FROM track
     JOIN genre ON track.genre_id = genre.genre_id
     GROUP BY genre.genre_id, genre.name
